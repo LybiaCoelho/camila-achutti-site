@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Camila Achutti - Mulher na Tecnologia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        
+        <img src="fotocami.jpg">
+        <div class="header-text">
+            <div class="header-container">
+            <h1>Camila Achutti</h1>
+            <p>Uma inspiradora figura na tecnologia</p>
+        </div>
+        <div class="header-buttons">
+            <button class="nav-button" onclick="window.location.href='index.html'">Bibliografia</button>
+            <button class="nav-button" onclick="window.location.href='formacao.html'">Formação academica</button>
+            <button class="nav-button" onclick="window.location.href='Palestra.html'">Palestra</button>
+            <button class="nav-button" onclick="window.location.href='quiz.html'">Quiz</button>
+        </div>
+    </div>
+    </header>
+    <section id="quiz">
+        <h2>Quiz sobre Camila Achutti</h2>
+    
+        <div id="question-container"></div>
+        <div id="options-container"></div>
+        <button id="next-button">Próxima Pergunta</button>
+        <div id="result-container"></div>
+    </section>
+    <script>
+        const questions = [
+            {
+                question: "Qual prêmio Camila Achutti conquistou em 2015?",
+                options: ["Women of Vision", "Nobel da Computação", "Oscar da Tecnologia"],
+                correctAnswer: "Women of Vision"
+            },
+            {
+                question: "Qual é a formação acadêmica de Camila Achutti?",
+                options: ["Biologia Marinha", "Administração", "Ciência da Computação"],
+                correctAnswer: "Ciência da Computação"
+            },
+            {
+                question: "Quantas mulheres havia na primeira turma de Ciência da Computação da USP, inspirando a criação do blog 'Mulheres na Computação'?",
+                options: ["50%", "70%", "90%"],
+                correctAnswer: "70%"
+            },
+            {
+                question: "Em que ano Camila Achutti conquistou o prêmio Women of Vision?",
+                options: ["2013", "2015", "2017"],
+                correctAnswer: "2015"
+            },
+            {
+                question: "Qual é o papel de Camila Achutti na Masterch?",
+                options: ["CEO e co-fundadora", "Diretora de Marketing", "Consultora Técnica"],
+                correctAnswer: "CEO e co-fundadora"
+            }
+        ];
+    
+        let currentQuestion = 0;
+        let score = 0;
+    
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const nextButton = document.getElementById('next-button');
+        const resultContainer = document.getElementById('result-container');
+    
+        function showQuestion() {
+            const currentQuestionData = questions[currentQuestion];
+            questionContainer.textContent = currentQuestionData.question;
+    
+            optionsContainer.innerHTML = ''; // Limpa as opções anteriores
+    
+            currentQuestionData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.addEventListener('click', () => checkAnswer(option));
+                optionsContainer.appendChild(button);
+            });
+    
+            nextButton.disabled = true;
+        }
+    
+        function checkAnswer(selectedOption) {
+            const currentQuestionData = questions[currentQuestion];
+            if (selectedOption === currentQuestionData.correctAnswer) {
+                score++;
+            }
+    
+            nextButton.disabled = false;
+        }
+    
+        function showResult() {
+            questionContainer.textContent = '';
+            optionsContainer.textContent = '';
+            nextButton.style.display = 'none';
+    
+            resultContainer.textContent = `Você acertou ${score} de ${questions.length} perguntas!`;
+        }
+    
+        function nextQuestion() {
+            currentQuestion++;
+    
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+    
+        nextButton.addEventListener('click', nextQuestion);
+    
+        showQuestion(); // Exibe a primeira pergunta quando a página é carregada
+    </script>
